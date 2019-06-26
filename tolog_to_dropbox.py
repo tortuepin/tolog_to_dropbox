@@ -123,38 +123,6 @@ class TologDropbox:
         file_response = self.dbx.files_download(metadata.id)
         return file_response[1].text
 
-    def uploadTologFile(self, date, text):
-        """
-        Tologファイルをuploadする
-        既に存在している場合は更新
-        存在していない場合は新規作成
-
-        Parameters
-        ----------
-        date : str
-            目的の日付
-        text : str
-            uploadするテキスト
-
-        Returns
-        -------
-        metadata : dropbox.files.FileMetadata
-            更新したファイルのメタデータ
-        """
-
-        if not self.validateTologDate(date):
-            raise t_exeptions.TologFileNameError
-        meta = self.getTologFileInfo(date)
-
-        if meta is None:
-            tolog_path = self._makeTologPath(date)
-            ret_meta = self.dbx.files_upload(text.encode(), tolog_path, mode=dropbox.files.WriteMode.add)
-        else:
-            tolog_path = meta.path_lower
-            rev = meta.rev
-            ret_meta = self.dbx.files_upload(text.encode(), tolog_path, mode=dropbox.files.WriteMode.update(rev))
-
-        return ret_meta
 
     def appendTologFile(self, date, text, pretext="\n"):
         """
