@@ -4,18 +4,6 @@ import sys
 import datetime as dt
 import tolog_to_dropbox_exeptions as t_exeptions
 
-TOKEN="TOLOG_DB_TOKEN"
-LOG_DIR="TOLOG_DB_LOG_DIR"
-
-
-token = os.getenv(TOKEN)
-log_dir = os.getenv(LOG_DIR)
-
-if token is None:
-    print("ERROR:", TOKEN , " is not set", file=sys.stderr)
-    sys.exit(1)
-
-
 class TologDropbox:
     """
     Dropbox上のTologファイルを扱うクラス
@@ -135,13 +123,13 @@ class TologDropbox:
             目的の日付
         text : str
             追記するテキスト
-        pretext : str
+        pretext : str, optional
             追記するときに最初に挿入される文字列
             デフォルトは"\n"
 
         Returns
         -------
-        metadata : dropbox.files.FileMetadata
+        metadata : dropbox.files.FileMetadata or None
             更新したファイルのメタデータ
             ファイルが存在しなかった場合はNone
         """
@@ -157,7 +145,7 @@ class TologDropbox:
 
         tolog_path = meta.path_lower
         rev = meta.rev
-        ret_meta = self.dbx.files_upload(text.encode(), tolog_path, mode=dropbox.files.WriteMode.update(rev))
+        ret_meta = self.dbx.files_upload(new_text.encode(), tolog_path, mode=dropbox.files.WriteMode.update(rev))
         return ret_meta
 
     def newTologFile(self, date, text):
@@ -195,16 +183,3 @@ class TologDropbox:
 
         return ret_meta
 
-
-
-
-td = TologDropbox(token, log_dir)
-#print(td.getTologText(td.getTologFile("19062")))
-#td.uploadTologFile("190626", "hoge")
-#print(td.uploadTologFile("991231", "huga"))
-print(td.appendTologFile("991231", "append"))
-#try:
-#    print(td.newTologFile("991231", "hogehoge"))
-#except:
-#    print("exist")
-#print(td.newTologFile("991230", "hogehoge"))
