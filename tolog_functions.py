@@ -1,7 +1,7 @@
 import os
 import sys
-import tolog_to_dropbox as t_td
 import datetime as dt
+import tolog_to_dropbox as t_td
 
 
 class TologFunctions:
