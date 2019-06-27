@@ -22,3 +22,10 @@ class TologFileNameError(VirtualTologError):
 
     def __str__(self):
         return self.message
+
+class TologConfigError(VirtualTologError):
+    def __init__(self):
+        self.message = "configが不十分。環境変数が指定されていないかも"
+
+    def __str__(self):
+        return self.message
