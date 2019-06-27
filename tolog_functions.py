@@ -14,14 +14,16 @@ class TologFunctions:
         Dropbox上のファイルを扱うクラス
     """
 
-    def __init__(self, td):
+    def __init__(self, td, config):
         """
         Parameters
         ----------
         td : tolog_to_dropbox.TologDropbox
             Dropbox上のファイルを扱うクラス
+        config : tolog_config.TologConfig
         """
         self.td = td
+        self.LogFormat = config.LogFormat
 
     def makeLogText(self, text="", tags=None, pretext="\n"):
         """
@@ -46,7 +48,7 @@ class TologFunctions:
 
         # 時間部分
         now = dt.datetime.now()
-        time_text = now.strftime("[%H:%M]")
+        time_text = now.strftime(self.LogFormat)
 
         log_text = log_text + time_text
 

@@ -6,19 +6,11 @@ import tolog_config as t_conf
 
 config = t_conf.TologConfig()
 
-#TOKEN="TOLOG_DB_TOKEN"
-#LOG_DIR="TOLOG_DB_LOG_DIR"
-#
-#
-#token = os.getenv(TOKEN)
-#log_dir = os.getenv(LOG_DIR)
 
 
+td = t_td.TologDropbox(config)
 
-
-td = t_td.TologDropbox(config.Token, config.Log_dir)
-
-tf = t_f.TologFunctions(td)
+tf = t_f.TologFunctions(td, config)
 
 d = "991231"
 tags = ["@hoge", "@test"]

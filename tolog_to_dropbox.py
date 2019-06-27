@@ -3,6 +3,7 @@ import os
 import sys
 import datetime as dt
 import tolog_to_dropbox_exeptions as t_exeptions
+import tolog_config as t_config
 
 class TologDropbox:
     """
@@ -12,24 +13,25 @@ class TologDropbox:
     ----------
     dbx : dropbox.dropbox.Dropbox
         ドロップボックスのクラス
-    log_dir : str
+    LogDir : str
         ドロップボックス上でのlogディレクトリのパス
+    FileType : str
+        tologファイルの拡張子
+    DateFormat : str
+        tologファイルのファイル名に使う日付のフォーマット
     """
 
-    def __init__(self, token, log_dir):
+    def __init__(self, config):
         """
         Parameters
         ----------
-        token : str
-            dropboxのトークン
-        log_dir : str
-            ドロップボックス上でのlogディレクトリのパス
+        config : tolog_config.TologConfig
+            設定扱うクラス
         """
-        self.dbx = dropbox.Dropbox(token)
-        # TODO この辺を設定するファイルを別に用意する
-        self.log_dir = log_dir
-        self.FileType = ".md"
-        self.DateFormat = "%y%m%d"
+        self.dbx = dropbox.Dropbox(config.Token)
+        self.LogDir = config.LogDir
+        self.FileType = config.FileType
+        self.DateFormat = config.DateFormat
 
     def validateTologDate(self, date):
         """
@@ -63,7 +65,7 @@ class TologDropbox:
             目的の日付
         """
 
-        return self.log_dir + "/" + date + self.FileType
+        return self.LogDir + "/" + date + self.FileType
 
 
     def getTologFileInfo(self, date):
@@ -86,7 +88,7 @@ class TologDropbox:
         tolog_to_dropbox_exeptions.OverflowError
             ファイルが重複していたとき
         """
-        search_ret = self.dbx.files_search(self.log_dir, date).matches
+        search_ret = self.dbx.files_search(self.LogDir, date).matches
         if len(search_ret) is 0:
             return None
         if len(search_ret) > 2:

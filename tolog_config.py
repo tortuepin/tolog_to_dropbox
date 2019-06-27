@@ -24,15 +24,18 @@ class TologConfig:
         LOG_DIR="TOLOG_DB_LOG_DIR"
         FILE_TYPE="TOLOG_FILETYPE"
         DATE_FORMATR="TOLOG_DATE_FORMAT"
+        LOG_FORMAT="TOLOG_LOG_FORMAT"
 
         D_FILE_TYPE = ".md"
         D_DATE_FORMAT = "%y%m%d"
+        D_LOG_FORMAT = "[%H:%M]"
 
 
         self.Token = os.getenv(TOKEN)
         self.LogDir = os.getenv(LOG_DIR)
         self.FileType = os.getenv(FILE_TYPE, D_FILE_TYPE)
         self.DateFormat = os.getenv(DATE_FORMATR, D_DATE_FORMAT)
+        self.LogFormat = os.getenv(LOG_FORMAT, D_LOG_FORMAT)
 
         if self.Token is None:
             raise t_exeptions.TologConfigError
