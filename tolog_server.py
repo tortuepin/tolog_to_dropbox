@@ -1,8 +1,10 @@
 import falcon
 import json
+import jsonschema
 import tolog_to_dropbox as t_td
 import tolog_functions as t_f
 import tolog_config as t_conf
+from tolog_json_schema import append_log_schema
 
 
 class TologServer(object):
@@ -17,6 +19,12 @@ class TologAppendLog(object):
         body = req.stream.read()
         data = json.loads(body)
 
+        try:
+            jsonschema.validate(data, append_log_schema)
+        except:
+            resp.body = json.dumps({"status":"faile", "message":"json schema is wrong"})
+            return
+
         date = data['date']
         tags = data['tags']
         text = data['text']
@@ -27,7 +35,7 @@ class TologAppendLog(object):
 
         ret = tf.appendLog(date, tags, text)
 
-        resp.body = json.dumps({"message":"success"})
+        resp.body = json.dumps({"status":"success"})
 
 app = falcon.API()
 

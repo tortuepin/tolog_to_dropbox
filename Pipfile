@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 dropbox = "*"
 falcon = "*"
+jsonschema = "*"
 
 [dev-packages]
 gunicorn = "*"
