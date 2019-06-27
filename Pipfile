@@ -14,3 +14,4 @@ python_version = "3.6"
 
 [scripts]
 start = "python tolog_to_dropbox.py"
+test = "python tolog_test.py"
