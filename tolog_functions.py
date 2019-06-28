@@ -23,7 +23,9 @@ class TologFunctions:
         config : tolog_config.TologConfig
         """
         self.td = td
+        self.config = config
         self.LogFormat = config.LogFormat
+        self.TimeZone = config.TimeZone
 
     def makeLogText(self, text="", tags=None, pretext="\n"):
         """
@@ -47,7 +49,11 @@ class TologFunctions:
         log_text = pretext
 
         # 時間部分
-        now = dt.datetime.now()
+
+        offset = dt.timedelta(hours=int(self.TimeZone))
+        TZ = dt.timezone(offset)
+
+        now = dt.datetime.now(TZ)
         time_text = now.strftime(self.LogFormat)
 
         log_text = log_text + time_text

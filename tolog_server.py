@@ -22,7 +22,7 @@ class TologAppendLog(object):
         try:
             jsonschema.validate(data, append_log_schema)
         except:
-            resp.body = json.dumps({"status":"faile", "message":"json schema is wrong"})
+            resp.body = json.dumps({"status":"fail", "message":"json schema is wrong"})
             return
 
         date = data['date']

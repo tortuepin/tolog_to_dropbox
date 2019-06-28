@@ -17,6 +17,8 @@ class TologConfig:
         tologファイルの拡張子
     DateFormat : str
         tologファイルのファイル名に使う日付のフォーマット
+    TimeZone : str
+        タイムゾーン
     """
 
     def __init__(self):
@@ -25,10 +27,12 @@ class TologConfig:
         FILE_TYPE="TOLOG_FILETYPE"
         DATE_FORMATR="TOLOG_DATE_FORMAT"
         LOG_FORMAT="TOLOG_LOG_FORMAT"
+        TIME_ZONE="TOLOG_TZ"
 
         D_FILE_TYPE = ".md"
         D_DATE_FORMAT = "%y%m%d"
         D_LOG_FORMAT = "[%H:%M]"
+        D_TIME_ZONE = "+9"
 
 
         self.Token = os.getenv(TOKEN)
@@ -36,6 +40,7 @@ class TologConfig:
         self.FileType = os.getenv(FILE_TYPE, D_FILE_TYPE)
         self.DateFormat = os.getenv(DATE_FORMATR, D_DATE_FORMAT)
         self.LogFormat = os.getenv(LOG_FORMAT, D_LOG_FORMAT)
+        self.TimeZone = os.getenv(TIME_ZONE, D_TIME_ZONE)
 
         if self.Token is None:
             raise t_exeptions.TologConfigError
