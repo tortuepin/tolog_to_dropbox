@@ -34,6 +34,7 @@ class TologAppendLog(object):
         tf = t_f.TologFunctions(td, config)
 
         ret = tf.appendLog(date, tags, text)
+        print(ret)
 
         resp.body = json.dumps({"status":"success"})
 
