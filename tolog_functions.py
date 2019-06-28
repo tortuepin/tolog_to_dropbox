@@ -88,6 +88,7 @@ class TologFunctions:
         """
 
         text_log = self.makeLogText(text, tags)
+        print(text_log)
 
         metadata = self.td.appendTologFile(date, text_log)
 

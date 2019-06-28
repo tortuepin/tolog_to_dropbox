@@ -145,6 +145,8 @@ class TologDropbox:
 
         new_text = base_text + pretext + text
 
+        print(new_text)
+
         tolog_path = meta.path_lower
         rev = meta.rev
         ret_meta = self.dbx.files_upload(new_text.encode(), tolog_path, mode=dropbox.files.WriteMode.update(rev))
